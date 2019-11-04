@@ -1,21 +1,19 @@
-/**
-  * libcrippy-1.0 - file.c
-  * Copyright (C) 2013 Crippy-Dev Team
-  * Copyright (C) 2010-2013 Joshua Hill
-  *
-  * This program is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU General Public License as published by
-  * the Free Software Foundation, either version 3 of the License, or
-  * (at your option) any later version.
-  *
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
-  *
-  * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- **/
+/* file.c
+ * © 2013 Crippy-Dev Team
+ * © 2010-2013 Joshua Hill
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>. */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,7 +75,7 @@ file_t* file_open(const char* path) {
 		}
 		fprintf(stderr, "Read in %llu of %llu bytes from %s\n", file->offset, file->size, file->path);
 		// We have the data stored in memory now, so we don't need to keep this open anymore
-		//fseek(file->desc, 0, SEEK_SET);
+     // fseek(file->desc, 0, SEEK_SET);
 		file_close(file);
 		file->offset = 0;
 	}
@@ -163,12 +161,12 @@ int file_copy(const char* from, const char* to)
 
 	ffr = fopen(from, "rb");
 	if(ffr == NULL) {
-		fprintf(stderr, "could not open source file '%s' for reading\n", from);
+		fprintf(stderr, "couldn't open source file '%s' for reading\n", from);
 		return -1;
 	}
 	fto = fopen(to, "wb");
 	if(fto == NULL) {
-		fprintf(stderr, "could not open target file '%s' for writing\n", to);
+		fprintf(stderr, "couldn't open target file '%s' for writing\n", to);
 		fclose(ffr);
 		return -1;
 	}

@@ -1,32 +1,28 @@
-/**
-  * libcrippy-1.0 - libcrippy.c
-  * Copyright (C) 2013 Crippy-Dev Team
-  * Copyright (C) 2010-2013 Joshua Hill
-  *
-  * This program is free software: you can redistribute it and/or modify
-  * it under the terms of the GNU General Public License as published by
-  * the Free Software Foundation, either version 3 of the License, or
-  * (at your option) any later version.
-  *
-  * This program is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * GNU General Public License for more details.
-  *
-  * You should have received a copy of the GNU General Public License
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- **/
+/* libcrippy.c
+ * © 2013 Crippy-Dev Team
+ * © 2010-2013 Joshua Hill
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>. */
+
+#include <plist/plist.h>
 
 #include <libcrippy-1.0/boolean.h>
 #include <libcrippy-1.0/libcrippy.h>
 
-#include <plist/plist.h>
-//#define PRINT_VERBOSE(min_level, ...) if (verbose >= min_level) { printf(__VA_ARGS__); };
 #define PRINT_VERBOSE(min_level, ...) if (10 >= min_level) { printf(__VA_ARGS__); };
 
-/*
- * This function converts the unix permission bits into understandable letters. OMG!
- */
+// This function converts the unix permission bits into understandable letters. OMG!
 char* prot2str(uint32_t prot) {
 	int i = 0;
 	char* str = (char*) malloc(BUFSMALL);
@@ -48,8 +44,7 @@ char* prot2str(uint32_t prot) {
 int check_ascii_string(const char* string, size_t length) {
 	size_t i = 0;
 	if (string) {
-		// Loop through each byte in this string and make sure it contains no invalid
-		//  ASCII characters that might screw up our exploit
+		// Loop through each byte in this string and make sure it contains no invalid ASCII characters that might screw up our exploit
 		for (i = 0; i < length; i++) {
 			char letter = string[i];
 			if ((letter & 0x80) > 0 || (letter & 0x7F) == 0) {
@@ -64,31 +59,30 @@ int check_ascii_string(const char* string, size_t length) {
 
 int check_ascii_pointer(uint32_t pointer) {
 	if((pointer & 0x80808080) > 0) {
-		//debug("FAIL\n");
+     // debug("FAIL\n");
 		return 0;
 	}
-	//debug("Passed ASCII test\n");
+ // debug("Passed ASCII test\n");
 	if((pointer & 0x7F000000) == 0 ||
 		(pointer & 0x007F0000) == 0 ||
 		(pointer & 0x00007F00) == 0 ||
 		(pointer & 0x0000007F) == 0) {
-		//debug("FAIL\n");
-		//debug("0x%08x & 0x7F7F7F7F = 0x%08x\n", pointer, (pointer & 0x7F7F7F7F));
+     // debug("FAIL\n");
+     // debug("0x%08x & 0x7F7F7F7F = 0x%08x\n", pointer, (pointer & 0x7F7F7F7F));
 		return 0;
 	}
-	//debug("PASS\n");
+ // debug("PASS\n");
 	return 1;
 }
 
 void hexdump (unsigned char* data, unsigned int amount) {
-    unsigned int    dp, p;  /* data pointer */
+    unsigned int    dp, p;  // data pointer
     const char      trans[] =
     "................................ !\"#$%&'()*+,-./0123456789"
     ":;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklm"
     "nopqrstuvwxyz{|}~...................................."
     "....................................................."
     "........................................";
-
 
     for (dp = 1; dp <= amount; dp++) {
         fprintf (stderr, "%02x ", data[dp-1]);
@@ -177,7 +171,6 @@ char* format_size_for_display(uint64_t size)
 	return strdup(buf);
 }
 
-
 int plist_read(const char* path, plist_t* plist) {
 	int x = 0;
 	unsigned int length = 0;
@@ -236,7 +229,6 @@ int plist_write(const char* path, plist_t plist, plist_format_t format) {
     
 	return 0;
 }
-
 
 void print_progress_real(double progress, int flush)
 {
