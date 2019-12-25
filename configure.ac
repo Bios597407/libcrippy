@@ -36,4 +36,3 @@ PKG_CHECK_MODULES(libplist, libplist >= 1.0)
 
 AC_CONFIG_FILES(Makefile src/Makefile include/Makefile libcrippy-1.0.pc)
 AC_OUTPUT
-

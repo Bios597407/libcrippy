@@ -1,4 +1,5 @@
-ACLOCAL_AMFLAGS = -I m4
+AUTOMAKE_OPTIONS = foreign
+AUTOACLOCAL_AMFLAGS = -I m4
 SUBDIRS=src include
 
 pkgconfigdir = $(libdir)/pkgconfig
